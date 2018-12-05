@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TaskManager.MVC5.Models.UserInRoles>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<h2>Staff List</h2>
+<body>
+    <table>
+        <tr>
+            <th>Staff Name</th>
+            <th>Staff Email</th>
+            <th></th>
+
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Users.UserName
+                </td>
+                <td>
+                    @item.Users.Email
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteStaff", new { id = item.UserId })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>

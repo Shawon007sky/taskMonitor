@@ -1,0 +1,32 @@
+﻿@model TaskManager.MVC5.Controllers.SystemController.SystemModel
+@{
+    ViewBag.Title = "Manage Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Raw(Model.Scheduler.Render())
+<div id="footer-top-border"></div>
+<style type="text/css">
+    @foreach(var state in Model.Statuses) {
+        <text> .dhx_cal_event.state_@state.id div{
+            background-color: @state.color;
+        }
+        </text>
+    }
+</style>
+
+<script type="text/javascript">
+    var data = JSON.parse('@Html.Raw(Model.Users)');
+    scheduler.templates.event_header = function (start, end, ev) {
+        return scheduler.templates.event_date(start) + " - " + scheduler.templates.event_date(end) + " (" + findById(data, ev.owner_id) + ")";
+    };
+
+    function findById(ar, id) {
+        for (var i = 0; i < ar.length; i++) {
+            if (ar[i].key == id) {
+                return ar[i].userName;
+            }
+        }
+        return "";
+    }
+</script>
